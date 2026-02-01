@@ -193,3 +193,7 @@ SerializationNode& State::StateBuilder::updateIntegratorParameters() {
     return state.updateIntegratorParameters();
 }
 
+void State::StateBuilder::setStepRandomNumbers(const std::vector<Vec3>& random) {
+    state.setStepRandomNumbers(random);
+}
+
