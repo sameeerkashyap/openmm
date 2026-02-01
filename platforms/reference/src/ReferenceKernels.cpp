@@ -261,6 +261,11 @@ void ReferenceUpdateStateDataKernel::getForces(ContextImpl& context, std::vector
     forces = extractForces(context);
 }
 
+void ReferenceUpdateStateDataKernel::getStepRandomNumbers(ContextImpl& context, std::vector<Vec3>& randomNumbers) {
+    // Reference platform currently doesn't store random numbers
+    randomNumbers.clear();
+}
+
 void ReferenceUpdateStateDataKernel::getEnergyParameterDerivatives(ContextImpl& context, map<string, double>& derivs) {
     derivs = extractEnergyParameterDerivatives(context);
 }
