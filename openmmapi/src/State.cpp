@@ -91,6 +91,13 @@ const SerializationNode& State::getIntegratorParameters() const {
         throw OpenMMException("Invoked getIntegratorParameters() on a State which does not contain integrator parameters.");
     return integratorParameters;
 }
+
+const vector<Vec3>& State::getStepRandomNumbers() const {
+    if ((types & RandomNumbers) == 0)
+        throw OpenMMException("Invoked getRandomNumbers() on a State which does not contain random numbers.");
+    return randomNumbers;
+}
+
 SerializationNode& State::updateIntegratorParameters() {
     types |= IntegratorParameters;
     integratorParameters.setName("IntegratorParameters");
@@ -103,6 +110,12 @@ State::State(double time, long long stepCount) : types(0), time(time), stepCount
 }
 State::State() : types(0), time(0.0), ke(0), pe(0), hasBoxVectors(false) {
 }
+
+void State::setStepRandomNumbers(const std::vector<Vec3>& random) {
+    randomNumbers = random;
+    types |= RandomNumbers;
+}
+
 void State::setPositions(const std::vector<Vec3>& pos) {
     positions = pos;
     types |= Positions;
@@ -179,3 +192,4 @@ void State::StateBuilder::setPeriodicBoxVectors(const Vec3& a, const Vec3& b, co
 SerializationNode& State::StateBuilder::updateIntegratorParameters() {
     return state.updateIntegratorParameters();
 }
+

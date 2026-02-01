@@ -242,6 +242,12 @@ public:
      * @param stream    an input stream the checkpoint data should be read from
      */
     virtual void loadCheckpoint(ContextImpl& context, std::istream& stream) = 0;
+    /**
+     * Get the random numbers used in the last step of the integrator.
+     * 
+     * @param randomNumbers  on exit, this vector will be filled with the random numbers used in the last step
+     */
+    virtual void getStepRandomNumbers(ContextImpl& context, std::vector<Vec3>& randomNumbers) = 0;
 };
 
 /**
