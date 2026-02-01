@@ -94,7 +94,7 @@ const SerializationNode& State::getIntegratorParameters() const {
 
 const vector<Vec3>& State::getStepRandomNumbers() const {
     if ((types & RandomNumbers) == 0)
-        throw OpenMMException("Invoked getRandomNumbers() on a State which does not contain random numbers.");
+        throw OpenMMException("Invoked getStepRandomNumbers() on a State which does not contain random numbers.");
     return randomNumbers;
 }
 
@@ -196,4 +196,3 @@ SerializationNode& State::StateBuilder::updateIntegratorParameters() {
 void State::StateBuilder::setStepRandomNumbers(const std::vector<Vec3>& random) {
     state.setStepRandomNumbers(random);
 }
-
