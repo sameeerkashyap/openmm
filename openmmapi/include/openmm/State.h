@@ -57,7 +57,7 @@ public:
      * This is an enumeration of the types of data which may be stored in a State.  When you create
      * a State, use these values to specify which data types it should contain.
      */
-    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16, ParameterDerivatives=32, IntegratorParameters=64};
+    enum DataType {Positions=1, Velocities=2, Forces=4, Energy=8, Parameters=16, ParameterDerivatives=32, IntegratorParameters=64, RandomNumbers=128};
     /**
      * Construct an empty State containing no data.  This exists so State objects can be used in STL containers.
      */
@@ -123,6 +123,10 @@ public:
      */
     const std::map<std::string, double>& getEnergyParameterDerivatives() const;
     /**
+     * Get the random number states. If this State does not contain random numbers, this will throw an exception.
+     */
+    const std::vector<Vec3>& getStepRandomNumbers() const;
+    /**
      * Get which data types are stored in this State.  The return value is a sum of DataType flags.
      */
     int getDataTypes() const;
@@ -137,6 +141,7 @@ private:
     void setEnergyParameterDerivatives(const std::map<std::string, double>& derivs);
     void setEnergy(double ke, double pe);
     void setPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Vec3& c);
+    void setStepRandomNumbers(const std::vector<Vec3>& random);
     SerializationNode& updateIntegratorParameters();
     const SerializationNode& getIntegratorParameters() const;
     int types;
@@ -148,6 +153,7 @@ private:
     std::vector<Vec3> forces;
     Vec3 periodicBoxVectors[3];
     std::map<std::string, double> parameters, energyParameterDerivatives;
+    std::vector<Vec3> randomNumbers;
     SerializationNode integratorParameters;
 };
 
@@ -168,6 +174,7 @@ public:
     void setEnergy(double ke, double pe);
     void setPeriodicBoxVectors(const Vec3& a, const Vec3& b, const Vec3& c);
     SerializationNode& updateIntegratorParameters();
+    void setStepRandomNumbers(const std::vector<Vec3>& random);
 private:
     State state;
 };

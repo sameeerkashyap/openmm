@@ -148,6 +148,11 @@ State Context::getState(int types, bool enforcePeriodicBox, int groups) const {
     if (types&State::IntegratorParameters) {
         getIntegrator().serializeParameters(builder.updateIntegratorParameters());
     }
+    if (types & State::RandomNumbers) {
+        vector<Vec3> randomNumbers;
+        impl->getStepRandomNumbers(randomNumbers);
+        builder.setStepRandomNumbers(randomNumbers);
+    }
     return builder.getState();
 }
 

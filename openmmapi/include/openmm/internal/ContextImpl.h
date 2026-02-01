@@ -245,6 +245,8 @@ public:
      * Get the platform-specific data stored in this context.
      */
     void* getPlatformData();
+
+    void getStepRandomNumbers(std::vector<Vec3>& randomNumbers);
     /**
      * Get the platform-specific data stored in this context.
      */

@@ -246,6 +246,10 @@ void ContextImpl::getForces(std::vector<Vec3>& forces) {
     updateStateDataKernel.getAs<UpdateStateDataKernel>().getForces(*this, forces);
 }
 
+void ContextImpl::getStepRandomNumbers(std::vector<Vec3>& randomNumbers) {
+    updateStateDataKernel.getAs<UpdateStateDataKernel>().getStepRandomNumbers(*this, randomNumbers);
+}
+
 const std::map<std::string, double>& ContextImpl::getParameters() const {
     return parameters;
 }

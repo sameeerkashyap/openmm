@@ -426,6 +426,36 @@ void CommonUpdateStateDataKernel::loadCheckpoint(ContextImpl& context, istream& 
     cc.validateAtomOrder();
 }
 
+void CommonUpdateStateDataKernel::getStepRandomNumbers(ContextImpl& context, vector<Vec3>& randomNumbers) {
+    ContextSelector selector(cc);
+    IntegrationUtilities& integration = cc.getIntegrationUtilities();
+    if (integration.getRandom().getSize() == 0) {
+        randomNumbers.clear();
+        return;
+    }
+    
+    // Download random numbers from device
+    vector<mm_float4> buffer;
+    integration.getRandom().download(buffer);
+
+    int numAtoms = cc.getNumAtoms();
+    int paddedNumAtoms = cc.getPaddedNumAtoms();
+    
+    // Calculate where the last block of random numbers started
+    int randomPos = integration.getRandomIndex();
+    int start = randomPos - paddedNumAtoms;
+    if (start < 0) start = 0;
+
+    randomNumbers.resize(numAtoms);
+    const vector<int>& order = cc.getAtomIndex();
+
+    // Copy to output vector, respecting the atom order
+    for (int i = 0; i < numAtoms; ++i) {
+        mm_float4 val = buffer[start + i];
+        randomNumbers[order[i]] = Vec3(val.x, val.y, val.z);
+    }
+}
+
 void CommonApplyConstraintsKernel::initialize(const System& system) {
 }
 

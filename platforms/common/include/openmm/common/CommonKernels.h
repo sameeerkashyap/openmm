@@ -124,6 +124,15 @@ public:
      *
      * @param derivs  on exit, this contains the derivatives
      */
+
+     /**
+     * Get the random numbers from the last integration step.
+     *
+     * @param randomNumbers  on exit, this contains the random numbers
+     */
+    void getStepRandomNumbers(ContextImpl& context, std::vector<Vec3>& randomNumbers);
+
+    
     void getEnergyParameterDerivatives(ContextImpl& context, std::map<std::string, double>& derivs);
     /**
      * Get the current periodic box vectors.

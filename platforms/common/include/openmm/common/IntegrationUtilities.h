@@ -102,6 +102,12 @@ public:
      */
     int prepareRandomNumbers(int numValues);
     /**
+     * Get the random numbers that were generated during the last integration step.
+     *
+     * @param randomNumbers  on exit, this vector will be filled with the random numbers used in the last step
+     */
+    void getStepRandomNumbers(std::vector<Vec3>& randomNumbers);
+    /**
      * Compute the positions of virtual sites.
      */
     void computeVirtualSites();
@@ -135,6 +141,12 @@ public:
      * @param velocities  the shifted velocities are returned in this
      */
     void computeShiftedVelocities(double timeShift, std::vector<Vec3>& velocities);
+    /**
+     * Get the index in the random array where the current step started.
+     */
+    int getRandomIndex() const {
+        return randomPos;
+    }
 protected:
     virtual void applyConstraintsImpl(bool constrainVelocities, double tol) = 0;
     ComputeContext& context;
