@@ -102,12 +102,6 @@ public:
      */
     int prepareRandomNumbers(int numValues);
     /**
-     * Get the random numbers that were generated during the last integration step.
-     *
-     * @param randomNumbers  on exit, this vector will be filled with the random numbers used in the last step
-     */
-    void getStepRandomNumbers(std::vector<Vec3>& randomNumbers);
-    /**
      * Compute the positions of virtual sites.
      */
     void computeVirtualSites();

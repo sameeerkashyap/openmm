@@ -12,10 +12,12 @@
     def getState(self, positions=False, velocities=False,
                  forces=False, energy=False, parameters=False,
                  parameterDerivatives=False, integratorParameters=False,
+                 randomNumbers=False,
                  enforcePeriodicBox=False, groups=-1,
                  getPositions=False, getVelocities=False,
                  getForces=False, getEnergy=False, getParameters=False,
-                 getParameterDerivatives=False, getIntegratorParameters=False):
+                 getParameterDerivatives=False, getIntegratorParameters=False,
+                 getRandomNumbers=False):
         """Get a State object recording the current state information stored in this context.
 
         Parameters
@@ -34,6 +36,8 @@
             whether to store parameter derivatives in the State
         integratorParameters : bool=False
             whether to store integrator parameters in the State
+        randomNumbers : bool=False
+            whether to store random numbers used in the last integration step
         enforcePeriodicBox : bool=False
             if false, the position of each particle will be whatever position
             is stored in the Context, regardless of periodic boundary conditions.
@@ -58,6 +62,8 @@
             Deprecated.  Use `parameterDerivatives` instead.
         getIntegratorParameters : bool=False
             Deprecated.  Use `integratorParameters` instead.
+        getRandomNumbers : bool=False
+            Deprecated.  Use `randomNumbers` instead.
         """
         try:
             # is the input integer-like?
@@ -86,6 +92,8 @@
             types += State.ParameterDerivatives
         if integratorParameters or getIntegratorParameters:
             types += State.IntegratorParameters
+        if randomNumbers or getRandomNumbers:
+            types += State.RandomNumbers
         state = _openmm.Context_getState(self, types, enforcePeriodicBox, groups_mask)
         return state
 

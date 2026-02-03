@@ -488,6 +488,7 @@ UNITS = {
 ("State", "getPeriodicBoxVectors") : ("unit.nanometers", ()),
 ("State", "getParameters") : (None, ()),
 ("State", "getEnergyParameterDerivatives") : (None, ()),
+("State", "getStepRandomNumbers") : (None, ()),
 ("System", "addParticle") : (None, ("unit.amu",)),
 ("System", "addConstraint") : (None, (None, None, "unit.nanometer")),
 ("System", "getConstraintParameters") : (None, (None, None, "unit.nanometer")),
